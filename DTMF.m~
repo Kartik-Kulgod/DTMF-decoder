@@ -1,0 +1,15 @@
+[y,Fs] = audioread('dtmfA1.wav');
+N = 100;
+inst_power = filter(ones(1,N)/N,1,y.*y);
+threshold = 0.5*max(inst_power);
+for i = (1:length(y))
+    if(inst_power(i)>threshold)
+        p_gt_t(i) = 1;
+    else
+        p_gt_t(i) = 0;
+    end
+end
+i = 1:length(y);
+beginning = (p_gt_t(2:length(y)) - p_gt_t(1:length(y)-1)== 1);
+beginning = (p_gt_t(2:length(y)) - p_gt_t(1:length(y)-1)== -1);
+
